@@ -1,0 +1,147 @@
+[gd_scene load_steps=18 format=3 uid="uid://btwjso8nbgiol"]
+
+[ext_resource type="Script" path="res://Scripts/goo_blob.gd" id="1_1cw7l"]
+[ext_resource type="Texture2D" uid="uid://qwuw2qdfs488" path="res://Assets/BlobAnimation.png" id="1_xjpc7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewgts"]
+atlas = ExtResource("1_xjpc7")
+region = Rect2(0, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjlio"]
+atlas = ExtResource("1_xjpc7")
+region = Rect2(60, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lew7n"]
+atlas = ExtResource("1_xjpc7")
+region = Rect2(120, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mwsx"]
+atlas = ExtResource("1_xjpc7")
+region = Rect2(180, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yup5i"]
+atlas = ExtResource("1_xjpc7")
+region = Rect2(240, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1y0k"]
+atlas = ExtResource("1_xjpc7")
+region = Rect2(300, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6i28x"]
+atlas = ExtResource("1_xjpc7")
+region = Rect2(360, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mtn7"]
+atlas = ExtResource("1_xjpc7")
+region = Rect2(420, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwr7o"]
+atlas = ExtResource("1_xjpc7")
+region = Rect2(480, 0, 60, 60)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dvm8e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewgts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjlio")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lew7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mwsx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yup5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1y0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6i28x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mtn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwr7o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_21md4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_im2u8"]
+resource_name = "shrinking"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.1, 0.1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2l0ns"]
+_data = {
+"RESET": SubResource("Animation_21md4"),
+"shrinking": SubResource("Animation_im2u8")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ogd2l"]
+radius = 17.0294
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_npkjk"]
+radius = 31.0
+
+[node name="GooBlob" type="AnimatableBody2D"]
+y_sort_enabled = true
+position = Vector2(0, -9)
+script = ExtResource("1_1cw7l")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -22)
+sprite_frames = SubResource("SpriteFrames_dvm8e")
+autoplay = "default"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2l0ns")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -17)
+shape = SubResource("CircleShape2D_ogd2l")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-1, -16)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_npkjk")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://ptcaw7dxptbt"]
+
+[ext_resource type="Script" path="res://Scenes/sense_pad_2.gd" id="1_d18e0"]
+[ext_resource type="Texture2D" uid="uid://dpt7ksoik1kxc" path="res://Assets/GeneralPad.png" id="2_nju7g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eqvaw"]
+size = Vector2(120, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xnjgd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nju7g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_d18e0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_eqvaw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visibility_layer = 2
+z_index = -1
+position = Vector2(0, -60)
+sprite_frames = SubResource("SpriteFrames_xnjgd")
+offset = Vector2(0, 60)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="AnimatedSprite2D"]
+offset_left = -20.0
+offset_top = 14.0
+offset_right = -5.0
+offset_bottom = 37.0
+scale = Vector2(4, 4)
+text = "2"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

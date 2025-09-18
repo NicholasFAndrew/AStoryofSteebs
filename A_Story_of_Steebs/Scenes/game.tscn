@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxss5q1jh1awc"]
+
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_srypa"]
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_srypa")

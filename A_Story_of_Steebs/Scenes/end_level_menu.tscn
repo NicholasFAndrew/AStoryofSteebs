@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7lox6g10a8qd"]
+
+[ext_resource type="Script" path="res://Scripts/end_level_menu.gd" id="1_arswa"]
+[ext_resource type="Texture2D" uid="uid://clqy034u8nce0" path="res://Assets/MenuButton.png" id="1_hduku"]
+[ext_resource type="Texture2D" uid="uid://bay5jub03lpks" path="res://Assets/MenuButtonPressed.png" id="2_pr7d0"]
+[ext_resource type="Texture2D" uid="uid://dpt7ksoik1kxc" path="res://Assets/GeneralPad.png" id="3_0qqe8"]
+[ext_resource type="FontFile" uid="uid://cvqqw5j71js6o" path="res://Assets/Daydream.ttf" id="4_4dfng"]
+
+[node name="EndLevelMenu" type="Control"]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 360.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_arswa")
+
+[node name="NextLevelButton" type="TextureButton" parent="."]
+layout_mode = 2
+offset_left = 21.0
+offset_top = 242.0
+offset_right = 141.0
+offset_bottom = 302.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("1_hduku")
+texture_pressed = ExtResource("2_pr7d0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(141, 106)
+scale = Vector2(2, 2)
+texture = ExtResource("3_0qqe8")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+offset_left = 56.0
+offset_top = 83.0
+offset_right = 410.0
+offset_bottom = 167.0
+scale = Vector2(0.485, 0.485)
+theme_override_fonts/font = ExtResource("4_4dfng")
+theme_override_font_sizes/font_size = 64
+text = "Steeb!"
+
+[node name="NextLevelLabel" type="Label" parent="."]
+layout_mode = 2
+offset_left = 42.0
+offset_top = 287.0
+offset_right = 636.0
+offset_bottom = 371.0
+scale = Vector2(0.335, 0.335)
+theme_override_fonts/font = ExtResource("4_4dfng")
+theme_override_font_sizes/font_size = 64
+text = "Next Level"
+
+[connection signal="button_up" from="NextLevelButton" to="." method="_on_next_level_button_button_up"]
